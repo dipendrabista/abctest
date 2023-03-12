@@ -1,0 +1,26 @@
+2023-03-12 18:12:47.380  INFO 16932 --- [main] c.m.droneapi.DroneAppApplication         : Starting DroneAppApplication using Java 1.8.0_333 on DESKTOP-3FVDAL6 with PID 16932 (D:\Downloads\drone-app\target\classes started by i213016 in D:\Downloads\drone-app)
+2023-03-12 18:12:47.410  INFO 16932 --- [main] c.m.droneapi.DroneAppApplication         : No active profile set, falling back to 1 default profile: "default"
+2023-03-12 18:12:50.787  INFO 16932 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-12 18:12:50.959  INFO 16932 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 149 ms. Found 2 JPA repository interfaces.
+2023-03-12 18:12:52.444  INFO 16932 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-03-12 18:12:52.477  INFO 16932 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-03-12 18:12:52.478  INFO 16932 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2023-03-12 18:12:53.513  INFO 16932 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-03-12 18:12:53.516  INFO 16932 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5983 ms
+2023-03-12 18:12:53.601  INFO 16932 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-03-12 18:12:54.056  INFO 16932 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-12 18:12:54.094  INFO 16932 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:drone'
+2023-03-12 18:12:54.777  INFO 16932 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-12 18:12:54.996  INFO 16932 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.12.Final
+2023-03-12 18:12:55.596  INFO 16932 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-03-12 18:12:56.089  INFO 16932 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-03-12 18:13:00.110  INFO 16932 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-12 18:13:00.160  INFO 16932 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-12 18:13:01.169  WARN 16932 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-12 18:13:03.871  INFO 16932 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-03-12 18:13:04.658  INFO 16932 --- [main] c.m.droneapi.DroneAppApplication         : Started DroneAppApplication in 19.309 seconds (JVM running for 26.976)
+2023-03-12 18:13:09.883  INFO 16932 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-03-12 18:13:09.884  INFO 16932 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-03-12 18:13:09.888  INFO 16932 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2023-03-12 18:13:09.921  WARN 16932 --- [http-nio-8081-exec-1] o.s.web.servlet.PageNotFound             : No mapping for GET /
+2023-03-12 18:13:10.275  WARN 16932 --- [http-nio-8081-exec-2] o.s.web.servlet.PageNotFound             : No mapping for GET /favicon.ico
