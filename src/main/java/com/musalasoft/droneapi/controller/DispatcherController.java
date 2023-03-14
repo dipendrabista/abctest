@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author Dipendra Bista
  * @since 2023/3/10
@@ -52,9 +54,9 @@ public class DispatcherController {
     @PostMapping(path = "load-medication", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Loading a drone with medication items")
-    public ResponseDTO loadMedication() {
+    public ResponseDTO loadMedication(String serialNumber, List<String> medicationCodes) {
         return ResponseDTO.builder()
-                .data(null)
+                .data(medicationService.loadMedication(serialNumber, medicationCodes))
                 .build();
     }
 

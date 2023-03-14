@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 spring:
   application:
     name: drone-app
@@ -23,7 +23,7 @@ spring:
 #    database-change-log-lock-table: drones_databasechangeloglock
 #    database-change-log-table: drones_databasechangelog
 scheduler:
-  interval: 60000
+  interval: 6000
 
 logging:
   file:
