@@ -15,9 +15,11 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,7 +49,7 @@ public class DispatcherController {
     public ResponseDTO regester(@Validated @RequestBody DroneDTO droneDTO) {
         log.info("Registering  new Drone : ", droneDTO);
         return ResponseDTO.builder()
-                .data(droneService.regesterDrone(droneDTO))
+                .data(droneService.registerDrone(droneDTO))
                 .build();
     }
 
@@ -60,7 +62,6 @@ public class DispatcherController {
                 .build();
     }
 
-    //TODO :Serial number not found exception
     @GetMapping(path = "check-loaded-medication", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Checking loaded medication items for a given drone")
@@ -71,7 +72,6 @@ public class DispatcherController {
                 .build();
     }
 
-    //TODO :Serial number not found exception
     @GetMapping(path = "check-battery-level", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Check drone battery level for a given drone")
@@ -86,8 +86,14 @@ public class DispatcherController {
     @ApiOperation(value = "Checking available drones for loading")
     public ResponseDTO checkAvailableDronesForLoading() {
         log.info("Retrieving list of available drones for loading ");
+        List<DroneDTO> droneDTOS = droneService.getAvailableDrones();
+        if (CollectionUtils.isEmpty(droneDTOS)) {
+            return ResponseDTO.builder()
+                    .data(Collections.emptyList())
+                    .build();
+        }
         return ResponseDTO.builder()
-                .data(droneService.getAvailableDrones())
+                .data(droneDTOS)
                 .build();
     }
 }

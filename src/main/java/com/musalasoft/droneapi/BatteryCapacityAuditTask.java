@@ -11,12 +11,19 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class BatteryCapacityAuditTask {
-
-    @Autowired
     private DroneAuditLogRepository droneAuditLogRepository;
+    private DroneRepository droneRepository;
 
     @Autowired
-    private DroneRepository droneRepository;
+    public BatteryCapacityAuditTask(
+            DroneAuditLogRepository droneAuditLogRepository,
+            DroneRepository droneRepository) {
+
+        this.droneAuditLogRepository = droneAuditLogRepository;
+        this.droneRepository = droneRepository;
+
+    }
+
 
     @Scheduled(fixedRateString = "${scheduler.interval}")
     public void auditBatteryCapacity() {

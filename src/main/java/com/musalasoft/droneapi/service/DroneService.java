@@ -21,15 +21,24 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class DroneService {
-
-    @Autowired
-    private DroneRepository droneRepository;
-    @Autowired
     private DroneMapper droneMapper;
-    @Autowired
+    private DroneRepository droneRepository;
     private MedicationMapper medicationMapper;
 
-    public Drone regesterDrone(DroneDTO droneDTO) {
+    @Autowired
+    public DroneService(
+            DroneRepository droneRepository,
+            DroneMapper droneMapper,
+            MedicationMapper medicationMapper
+
+    ) {
+        this.droneRepository = droneRepository;
+        this.droneMapper = droneMapper;
+        this.medicationMapper = medicationMapper;
+
+    }
+
+    public Drone registerDrone(DroneDTO droneDTO) {
         log.info("Converting DroneDTO to Drone Entity and persisting into Database");
         if (droneRepository.count() == AppConstants.MAX_FLEET_SIZE)
             throw new RuntimeException("Drone Fleet Size Exceeded");
@@ -37,7 +46,7 @@ public class DroneService {
          * Drone state should be in IDLE state and weight =0 initially
          */
         droneDTO.setState(State.IDLE);
-        droneDTO.setWeight(0.0);
+        droneDTO.setWeightLimit(0.0);
         return droneRepository.save(droneMapper.from(droneDTO));
     }
 

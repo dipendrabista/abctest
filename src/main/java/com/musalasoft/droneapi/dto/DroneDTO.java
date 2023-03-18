@@ -15,8 +15,8 @@ public class DroneDTO {
     private String serialNumber;
     @Enumerated(EnumType.STRING)
     private Model model;
-    @Range(min = 0, max = 500, message = "Drone Wight must be between 0-500gm !")
-    private Double weight;
+    @Range(min = 0, max = 500, message = "Drone Wight limit must be between 0-500gm !")
+    private Double weightLimit;
     @Range(min = 0, max = 100, message = "Drone Battery Capacity must be between 0-500gm !")
     private Double batteryCapacity;
     @Enumerated(EnumType.STRING)

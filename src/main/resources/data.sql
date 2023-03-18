@@ -1,7 +1,7 @@
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight) VALUES('DRONE001', 15, 'LIGHTWEIGHT', 'IDLE', 300);
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight) VALUES('DRONE002', 60, 'LIGHTWEIGHT', 'IDLE', 300);
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight) VALUES('DRONE003', 42, 'LIGHTWEIGHT', 'LOADING', 300);
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight) VALUES('DRONE004', 42, 'LIGHTWEIGHT', 'IDLE', 300);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE001', 15, 'LIGHTWEIGHT', 'IDLE', 300);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE002', 60, 'LIGHTWEIGHT', 'IDLE', 300);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE003', 42, 'LIGHTWEIGHT', 'LOADING', 300);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE004', 42, 'LIGHTWEIGHT', 'IDLE', 300);
 
 
 INSERT INTO MEDICATION (code, name, weight,serial_number) VALUES('MEDICATION001', 'Melanotan', 80,'DRONE001');

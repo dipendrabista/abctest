@@ -162,13 +162,14 @@ public class GlobalExceptionHandlerMethods extends ResponseEntityExceptionHandle
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ResponseDTO> resourceNotFoundException(Exception ex, WebRequest request) {
+        System.out.println("" + ex.getMessage() + ex.getLocalizedMessage());
         return buildErrorResponse(ResponseDTO.builder()
                 .data(Collections.EMPTY_LIST)
                 .meta(Collections.EMPTY_MAP)
                 .errors(Collections.singletonList((ApiError.builder()
                         .timestamp(LocalDateTime.now())
                         .status(NOT_FOUND)
-                        .message(ex.getMessage())
+                        .message(ex.getLocalizedMessage())
                         //.debugMessage(ExceptionUtils.getStackTrace(ex))
                         .build()))).build(), NOT_FOUND);
     }

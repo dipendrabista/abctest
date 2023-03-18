@@ -21,12 +21,20 @@ import static com.musalasoft.droneapi.constants.AppConstants.WEIGHT_LIMIT;
 @Service
 @Slf4j
 public class MedicationService {
-    @Autowired
-    private MedicationRepository medicationRepository;
-    @Autowired
     private DroneRepository droneRepository;
-    @Autowired
     private MedicationMapper medicationMapper;
+    private MedicationRepository medicationRepository;
+
+    @Autowired
+    public MedicationService(
+            MedicationRepository medicationRepository,
+            DroneRepository droneRepository,
+            MedicationMapper medicationMapper
+    ) {
+        this.droneRepository = droneRepository;
+        this.medicationRepository = medicationRepository;
+        this.medicationMapper = medicationMapper;
+    }
 
     public List<MedicationDTO> findLoadedMedication(String serialNumber) {
         log.info("Retrieving drone details with serial number {}", serialNumber);
@@ -42,13 +50,13 @@ public class MedicationService {
             Medication m = medicationRepository.findById(mC).orElseThrow(() -> ResourceNotFoundException.of("messageCreator.createMessage(MEDICATION_CODE_NOT_FOUND)"));
             m.setDrone(drone);
             medicationRepository.saveAndFlush(m);
-            double newWeight = drone.getWeight() + m.getWeight();
+            double newWeight = drone.getWeightLimit() + m.getWeight();
             if (newWeight < WEIGHT_LIMIT) {
-                drone.setWeight(newWeight);
+                drone.setWeightLimit(newWeight);
                 drone.setState(State.LOADING);
             }
             if (newWeight == WEIGHT_LIMIT) {
-                drone.setWeight(newWeight);
+                drone.setWeightLimit(newWeight);
                 drone.setState(State.LOADED);
             }
             if (newWeight > WEIGHT_LIMIT)
