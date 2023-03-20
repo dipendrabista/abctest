@@ -1,5 +1,6 @@
 package com.musalasoft.droneapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.musalasoft.droneapi.constants.Model;
 import com.musalasoft.droneapi.constants.State;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Entity
@@ -38,4 +40,8 @@ public class Drone {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10) NOT NULL")
     private State state;
+
+    @OneToMany(mappedBy = "drone",fetch = FetchType.LAZY)
+    @JsonBackReference
+    List<DroneLoad> droneLoads;
 }

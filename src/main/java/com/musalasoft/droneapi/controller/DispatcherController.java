@@ -1,6 +1,7 @@
 package com.musalasoft.droneapi.controller;
 
 import com.musalasoft.droneapi.dto.DroneDTO;
+import com.musalasoft.droneapi.dto.MedicationDTO;
 import com.musalasoft.droneapi.exception.object.ResponseDTO;
 import com.musalasoft.droneapi.service.DroneService;
 import com.musalasoft.droneapi.service.MedicationService;
@@ -67,8 +68,15 @@ public class DispatcherController {
     @ApiOperation(value = "Checking loaded medication items for a given drone")
     public ResponseDTO checkLoadedMedication(String serialNumber) {
         log.info("Retrieving list of loaded medication for the given drone {}", serialNumber);
+        List<MedicationDTO> medicationDTOs = droneService.findLoadedMedication(serialNumber);
+        if (CollectionUtils.isEmpty(medicationDTOs)) {
+            log.info("Drone {} is not loaded any medication ", serialNumber);
+            return ResponseDTO.builder()
+                    .data(Collections.EMPTY_LIST)
+                    .build();
+        }
         return ResponseDTO.builder()
-                .data(medicationService.findLoadedMedication(serialNumber))
+                .data(medicationDTOs)
                 .build();
     }
 
@@ -76,6 +84,7 @@ public class DispatcherController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Check drone battery level for a given drone")
     public ResponseDTO checkBatteryLevel(String serialNumber) {
+        log.info("Checking battery levels of given Drone {}", serialNumber);
         return ResponseDTO.builder()
                 .data(droneService.findDroneBatteryCapacity(serialNumber))
                 .build();

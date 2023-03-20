@@ -1,5 +1,6 @@
 package com.musalasoft.droneapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.sql.Blob;
+import java.util.List;
 
 @Entity
 @Setter
@@ -27,8 +29,7 @@ public class Medication {
     private String name;
     private Double weight;
     private Blob image;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "serial_number")
-    private Drone drone;
+    @JsonBackReference
+    @OneToMany(mappedBy = "medication", fetch = FetchType.LAZY)
+    List<DroneLoad> droneLoads;
 }

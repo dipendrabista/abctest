@@ -18,10 +18,10 @@
 #### How To build/run the project
  
  - git clone someURL
- - cd /project_dir
- - mvn clean install
- - java -jar target/drone-app-1.0.0.jar 
-
+    - 3 Different way to run project
+        - Run the main method from DroneApi
+        - Use the Maven Spring Boot plugin: mvn spring-boot:run
+        - Package the application as a JAR: mvn clean install and run it using java -jar drone-api-1.0.0.jar
 
 #### Testing    
   - Postman/[Swagger](http://localhost:8082/swagger-ui/index.html) (For testing ) 
