@@ -51,8 +51,7 @@ public class DroneLoadService {
      * ii>Serial Number and Medication Code must valid
      * iii>Drone load should not exceed it weight limit
      *
-     * @param serialNumber
-     * @param medicationCodes
+     * @param medicationLoadRequestDTO
      * @return
      */
     @Transactional

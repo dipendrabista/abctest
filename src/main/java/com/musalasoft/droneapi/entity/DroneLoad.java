@@ -11,8 +11,9 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
-public class DroneLoad  extends CreateUpdateAudit<String> {
+public class DroneLoad extends CreateUpdateAudit<String> {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "serialNumber", referencedColumnName = "serialNumber")
