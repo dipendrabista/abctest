@@ -1,5 +1,6 @@
 package com.musalasoft.droneapi.exception;
 
+import com.musalasoft.droneapi.dto.ResponseDTO;
 import com.musalasoft.droneapi.exception.object.*;
 import com.musalasoft.droneapi.util.ErrorObjectUtility;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,6 @@ import static org.springframework.http.HttpStatus.*;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandlerMethods extends ResponseEntityExceptionHandler {
-
-
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(
             NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

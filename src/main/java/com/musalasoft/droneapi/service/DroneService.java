@@ -8,6 +8,7 @@ import com.musalasoft.droneapi.dto.mapper.DroneMapper;
 import com.musalasoft.droneapi.dto.mapper.MedicationMapper;
 import com.musalasoft.droneapi.entity.Drone;
 import com.musalasoft.droneapi.entity.Medication;
+import com.musalasoft.droneapi.exception.object.AlreadyExistException;
 import com.musalasoft.droneapi.exception.object.ResourceNotFoundException;
 import com.musalasoft.droneapi.repo.DroneRepository;
 import com.musalasoft.droneapi.repo.MedicationRepository;
@@ -47,11 +48,12 @@ public class DroneService {
         log.info("Converting DroneDTO to Drone Entity and persisting into Database");
         if (droneRepository.count() == AppConstants.MAX_FLEET_SIZE)
             throw new RuntimeException("Drone Fleet Size Exceeded");
+        droneRepository.findById(droneDTO.getSerialNumber())
+                .orElseThrow(() -> AlreadyExistException.of("Drone " + droneDTO.getSerialNumber() + " already exist !"));
         /**
-         * Drone state should be in IDLE state and weight =0 initially
+         * Drone state set to IDLE state initially
          */
         droneDTO.setState(State.IDLE);
-        droneDTO.setWeightLimit(0.0);
         return droneRepository.save(droneMapper.from(droneDTO));
     }
 

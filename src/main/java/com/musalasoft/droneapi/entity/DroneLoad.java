@@ -1,5 +1,6 @@
 package com.musalasoft.droneapi.entity;
 
+import com.musalasoft.droneapi.entity.audit.CreateUpdateAudit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
-public class DroneLoad {
+public class DroneLoad  extends CreateUpdateAudit<String> {
     @Id
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)

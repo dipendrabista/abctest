@@ -1,6 +1,7 @@
 package com.musalasoft.droneapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.musalasoft.droneapi.entity.audit.CreateUpdateAudit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Medication {
+public class Medication extends CreateUpdateAudit<String> {
     @Id
     @Pattern(
             regexp = "[A-Z0-9_]+",

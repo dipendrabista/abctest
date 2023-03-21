@@ -1,4 +1,4 @@
-package com.musalasoft.droneapi.exception.object;
+package com.musalasoft.droneapi.dto;
 
 import com.musalasoft.droneapi.exception.ApiError;
 import lombok.*;

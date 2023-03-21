@@ -2,7 +2,7 @@ package com.musalasoft.droneapi.controller;
 
 import com.musalasoft.droneapi.dto.DroneDTO;
 import com.musalasoft.droneapi.dto.MedicationDTO;
-import com.musalasoft.droneapi.exception.object.ResponseDTO;
+import com.musalasoft.droneapi.dto.ResponseDTO;
 import com.musalasoft.droneapi.service.DroneLoadService;
 import com.musalasoft.droneapi.service.DroneService;
 import io.swagger.annotations.Api;
@@ -102,6 +102,17 @@ public class DispatcherController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Check drone battery level for a given drone")
     public ResponseDTO checkBatteryLevel(String serialNumber) {
+        log.info("Checking battery levels of given Drone {}", serialNumber);
+        return ResponseDTO.builder()
+                .data(droneService.findDroneBatteryCapacity(serialNumber))
+                .build();
+    }
+
+
+    @GetMapping(path = "/deliver", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Check drone battery level for a given drone")
+    public ResponseDTO deliver(String serialNumber) {
         log.info("Checking battery levels of given Drone {}", serialNumber);
         return ResponseDTO.builder()
                 .data(droneService.findDroneBatteryCapacity(serialNumber))
