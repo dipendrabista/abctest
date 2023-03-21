@@ -8,7 +8,6 @@ spring:
     driver-class-name: org.h2.Driver
     username: musalasoft
     password: musalasoft
-  #    initialization-mode: always
   h2:
     console:
       enabled: true
@@ -16,12 +15,6 @@ spring:
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
-#  liquibase:
-#    enabled: false
-#    change-log: classpath:/db/changelog/db.changelog-master.yml
-#        default_schema: drones
-#    database-change-log-lock-table: drones_databasechangeloglock
-#    database-change-log-table: drones_databasechangelog
 scheduler:
   interval: 6000
 
