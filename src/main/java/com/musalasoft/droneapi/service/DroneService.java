@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 public class DroneService {
     private DroneMapper droneMapper;
     private DroneRepository droneRepository;
-    private MedicationRepository medicationRepository;
     private MedicationMapper medicationMapper;
 
     @Autowired
@@ -39,7 +38,6 @@ public class DroneService {
 
     ) {
         this.droneRepository = droneRepository;
-        this.medicationRepository = medicationRepository;
         this.droneMapper = droneMapper;
         this.medicationMapper = medicationMapper;
 
