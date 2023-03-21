@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
 
@@ -107,4 +108,15 @@ public class DispatcherController {
                 .data(droneService.findDroneBatteryCapacity(serialNumber))
                 .build();
     }
+
+    @GetMapping(path = "deliver", produces = "application/json", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Check drone battery level for a given drone")
+    public ResponseDTO deliver(@NotNull String serialNumber) {
+        log.info("Checking battery levels of given Drone {}", serialNumber);
+        return ResponseDTO.builder()
+                .data(droneService.findDroneBatteryCapacity(serialNumber))
+                .build();
+    }
+
 }

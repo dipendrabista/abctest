@@ -36,7 +36,7 @@ public class DroneLoadService {
 
     public Double getTotalMedicationLoad(String serialNumber) {
         log.info("Retrieving Medication Load for {} drone ", serialNumber);
-        return droneLoadRepository.findByDroneSerialNumberAnd(serialNumber)
+        return droneLoadRepository.findByDroneSerialNumber(serialNumber)
                 .stream()
                 .mapToDouble(droneLoad -> droneLoad.getMedication().getWeight())
                 .sum();
@@ -79,5 +79,6 @@ public class DroneLoadService {
         droneRepository.updateDroneState(State.LOADED, serialNumber);
         return "Drone Loaded Successfully";
     }
+
 
 }

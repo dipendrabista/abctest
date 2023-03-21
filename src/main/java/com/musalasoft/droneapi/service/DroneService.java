@@ -10,7 +10,6 @@ import com.musalasoft.droneapi.entity.Drone;
 import com.musalasoft.droneapi.entity.Medication;
 import com.musalasoft.droneapi.exception.object.ResourceNotFoundException;
 import com.musalasoft.droneapi.repo.DroneRepository;
-import com.musalasoft.droneapi.repo.MedicationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,6 @@ public class DroneService {
     @Autowired
     public DroneService(
             DroneRepository droneRepository,
-            MedicationRepository medicationRepository,
             DroneMapper droneMapper,
             MedicationMapper medicationMapper
 
