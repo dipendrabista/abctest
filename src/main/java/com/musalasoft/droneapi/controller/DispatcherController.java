@@ -2,6 +2,7 @@ package com.musalasoft.droneapi.controller;
 
 import com.musalasoft.droneapi.dto.DroneDTO;
 import com.musalasoft.droneapi.dto.MedicationDTO;
+import com.musalasoft.droneapi.dto.MedicationLoadRequestDTO;
 import com.musalasoft.droneapi.dto.ResponseDTO;
 import com.musalasoft.droneapi.service.DroneLoadService;
 import com.musalasoft.droneapi.service.DroneService;
@@ -20,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +50,7 @@ public class DispatcherController {
     @PostMapping(path = "register", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Register Drone")
-    public ResponseDTO register(@Validated @RequestBody DroneDTO droneDTO) {
+    public ResponseDTO register(@Validated @NotNull @RequestBody DroneDTO droneDTO) {
         log.info("Registering  new Drone : ", droneDTO);
         return ResponseDTO.builder()
                 .data(droneService.registerDrone(droneDTO))
@@ -58,17 +60,17 @@ public class DispatcherController {
     @PostMapping(path = "load-medication", consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Loading a drone with medication items")
-    public ResponseDTO loadMedication(String serialNumber, List<String> medicationCodes) {
-        log.info("Load drone {} with medications {}", serialNumber, medicationCodes);
+    public ResponseDTO loadMedication(@Valid @NotNull @RequestBody MedicationLoadRequestDTO medicationLoadRequestDTO) {
+        log.info("Load drone {} with medications {}", medicationLoadRequestDTO.getSerialNumber(), medicationLoadRequestDTO.getMedicationCodes());
         return ResponseDTO.builder()
-                .data(droneLoadService.loadMedication(serialNumber, medicationCodes))
+                .data(droneLoadService.loadMedication(medicationLoadRequestDTO))
                 .build();
     }
 
     @GetMapping(path = "check-loaded-medication", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Checking loaded medication items for a given drone")
-    public ResponseDTO checkLoadedMedication(String serialNumber) {
+    public ResponseDTO checkLoadedMedication(@NotNull @RequestParam String serialNumber) {
         log.info("Retrieving list of loaded medication for the given drone {}", serialNumber);
         List<MedicationDTO> medicationDTOs = droneService.findLoadedMedication(serialNumber);
         if (CollectionUtils.isEmpty(medicationDTOs)) {
@@ -102,7 +104,7 @@ public class DispatcherController {
     @GetMapping(path = "check-battery-level", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Check drone battery level for a given drone")
-    public ResponseDTO checkBatteryLevel(String serialNumber) {
+    public ResponseDTO checkBatteryLevel(@NotNull @RequestParam String serialNumber) {
         log.info("Checking battery levels of given Drone {}", serialNumber);
         return ResponseDTO.builder()
                 .data(droneService.findDroneBatteryCapacity(serialNumber))
@@ -113,7 +115,7 @@ public class DispatcherController {
     @GetMapping(path = "deliver", produces = "application/json", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Check drone battery level for a given drone")
-    public ResponseDTO deliver(@NotNull String serialNumber) {
+    public ResponseDTO deliver(@NotNull @RequestParam String serialNumber) {
         log.info("Checking battery levels of given Drone {}", serialNumber);
         return ResponseDTO.builder()
                 .data(droneService.findDroneBatteryCapacity(serialNumber))

@@ -1,6 +1,7 @@
 package com.musalasoft.droneapi.service;
 
 import com.musalasoft.droneapi.constants.State;
+import com.musalasoft.droneapi.dto.MedicationLoadRequestDTO;
 import com.musalasoft.droneapi.entity.Drone;
 import com.musalasoft.droneapi.entity.DroneLoad;
 import com.musalasoft.droneapi.entity.Medication;
@@ -55,19 +56,19 @@ public class DroneLoadService {
      * @return
      */
     @Transactional
-    public String loadMedication(String serialNumber, List<String> medicationCodes) {
+    public String loadMedication(MedicationLoadRequestDTO medicationLoadRequestDTO) {
         List<Medication> medicationList = new ArrayList<>();
         List<DroneLoad> droneLoads = new ArrayList<>();
-        Drone drone = droneRepository.findById(serialNumber).orElseThrow(() -> ResourceNotFoundException.of("messageCreator.createMessage(DRONE_SERIAL_NUMBER_NOT_FOUND)"));
+        Drone drone = droneRepository.findById(medicationLoadRequestDTO.getSerialNumber()).orElseThrow(() -> ResourceNotFoundException.of("messageCreator.createMessage(DRONE_SERIAL_NUMBER_NOT_FOUND)"));
         if (drone.getBatteryCapacity().compareTo(new Double(0.25)) < 0)
             throw new RuntimeException("Can no load battery capacity less than 25%");
 
-        medicationCodes.forEach(code -> medicationList.add(medicationRepository.findById(code)
+        medicationLoadRequestDTO.getMedicationCodes().forEach(code -> medicationList.add(medicationRepository.findById(code)
                 .orElseThrow(() -> ResourceNotFoundException.of("Invalid Medical Code"))));
-        if (getTotalMedicationLoad(serialNumber) >= drone.getWeightLimit())
+        if (getTotalMedicationLoad(medicationLoadRequestDTO.getSerialNumber()) >= drone.getWeightLimit())
             throw new RuntimeException("Drone is Fully Loaded");
 
-        droneRepository.updateDroneState(State.LOADING, serialNumber);
+        droneRepository.updateDroneState(State.LOADING, medicationLoadRequestDTO.getSerialNumber());
         medicationList.forEach(medication -> {
             DroneLoad droneLoad = new DroneLoad();
             droneLoad.setDrone(drone);
@@ -76,7 +77,7 @@ public class DroneLoadService {
 
         });
         droneLoadRepository.saveAll(droneLoads);
-        droneRepository.updateDroneState(State.LOADED, serialNumber);
+        droneRepository.updateDroneState(State.LOADED, medicationLoadRequestDTO.getSerialNumber());
         return "Drone Loaded Successfully";
     }
 

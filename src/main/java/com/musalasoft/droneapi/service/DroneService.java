@@ -47,7 +47,9 @@ public class DroneService {
         if (droneRepository.count() == AppConstants.MAX_FLEET_SIZE)
             throw new RuntimeException("Drone Fleet Size Exceeded");
         droneRepository.findById(droneDTO.getSerialNumber())
-                .orElseThrow(() -> AlreadyExistException.of("Drone " + droneDTO.getSerialNumber() + " already exist !"));
+                .ifPresent((drone) -> {
+                    throw AlreadyExistException.of("Drone " + drone.getSerialNumber() + " already exist !");
+                });
         /**
          * Drone state set to IDLE state initially
          */
