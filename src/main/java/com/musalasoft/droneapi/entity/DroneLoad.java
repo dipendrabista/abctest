@@ -17,6 +17,7 @@ public class DroneLoad  extends CreateUpdateAudit<String> {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "serialNumber", referencedColumnName = "serialNumber")
     private Drone drone;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "code", referencedColumnName = "code", unique = true)
     private Medication medication;
