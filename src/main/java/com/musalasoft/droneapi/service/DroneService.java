@@ -51,7 +51,7 @@ public class DroneService {
                     throw AlreadyExistException.of("Drone " + drone.getSerialNumber() + " already exist !");
                 });
         /**
-         * Drone state set to IDLE state initially
+         * Drone state set to IDLE state initially regardless of the state passed from the client
          */
         droneDTO.setState(State.IDLE);
         return droneRepository.save(droneMapper.from(droneDTO));

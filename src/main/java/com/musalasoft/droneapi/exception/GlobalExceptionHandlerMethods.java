@@ -1,7 +1,9 @@
 package com.musalasoft.droneapi.exception;
 
 import com.musalasoft.droneapi.dto.ResponseDTO;
-import com.musalasoft.droneapi.exception.object.*;
+import com.musalasoft.droneapi.exception.object.AlreadyExistException;
+import com.musalasoft.droneapi.exception.object.EntityInvalidException;
+import com.musalasoft.droneapi.exception.object.ResourceNotFoundException;
 import com.musalasoft.droneapi.util.ErrorObjectUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
@@ -146,19 +148,6 @@ public class GlobalExceptionHandlerMethods extends ResponseEntityExceptionHandle
         return new ResponseEntity<>(responseDTO, status);
     }
 
-    @ExceptionHandler(OperationFailedException.class)
-    public ResponseEntity<ResponseDTO> OperationFailedException(Exception ex, WebRequest request) {
-        return buildErrorResponse(ResponseDTO.builder()
-                .data(Collections.EMPTY_LIST)
-                .meta(Collections.EMPTY_MAP)
-                .errors(Collections.singletonList((ApiError.builder()
-                        .timestamp(LocalDateTime.now())
-                        .status(INTERNAL_SERVER_ERROR)
-                        .message(ex.getMessage())
-                        //.debugMessage(ExceptionUtils.getStackTrace(ex))
-                        .build()))).build(), INTERNAL_SERVER_ERROR);
-    }
-
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ResponseDTO> resourceNotFoundException(Exception ex, WebRequest request) {
         System.out.println("" + ex.getMessage() + ex.getLocalizedMessage());
@@ -213,15 +202,5 @@ public class GlobalExceptionHandlerMethods extends ResponseEntityExceptionHandle
                         .build()))).build(), INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UrlMalformedException.class)
-    public ResponseEntity<ResponseDTO> UrlMalformedException(Exception ex) {
-        return buildErrorResponse(ResponseDTO.builder()
-                .data(Collections.EMPTY_LIST)
-                .errors(Collections.singletonList((ApiError.builder()
-                        .timestamp(LocalDateTime.now())
-                        .status(BAD_REQUEST)
-                        .message(ex.getMessage())
-                        .debugMessage("Malformed Url")
-                        .build()))).build(), BAD_REQUEST);
-    }
+
 }
