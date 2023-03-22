@@ -10,6 +10,7 @@ import com.musalasoft.droneapi.dto.mapper.MedicationMapper;
 import com.musalasoft.droneapi.entity.Drone;
 import com.musalasoft.droneapi.entity.Medication;
 import com.musalasoft.droneapi.exception.object.AlreadyExistException;
+import com.musalasoft.droneapi.exception.object.InvalidRequestException;
 import com.musalasoft.droneapi.exception.object.ResourceNotFoundException;
 import com.musalasoft.droneapi.repo.DroneRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -102,7 +103,10 @@ public class DroneService {
     public Drone changeDroneStatus(String serialNumber, DroneStatus droneStatus) {
 //        log.info("Retrieving Battery capacity for {} drone ", serialNumber);
         Drone drone = this.getDrone(serialNumber);
-        // todo: validation
+        State nextState = drone.getState().nextState();
+        if (nextState != droneStatus.getStatus()) {
+           throw InvalidRequestException.of(String.format("Drone State con only be changed to %s", nextState));
+        }
         droneRepository.updateDroneStateAndBatteryCapacity(
                 serialNumber,
                 droneStatus.getStatus(),
