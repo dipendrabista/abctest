@@ -84,6 +84,7 @@ public class DroneLoadService {
 
         droneRepository.updateDroneState(State.LOADED, medicationLoadRequestDTO.getSerialNumber());
 
+
         return "Drone Loaded Successfully";
     }
 }
