@@ -11,5 +11,4 @@ public interface DroneMapper {
     DroneDTO from(Drone drone);
 
     Drone from(DroneDTO droneDTO);
-
 }

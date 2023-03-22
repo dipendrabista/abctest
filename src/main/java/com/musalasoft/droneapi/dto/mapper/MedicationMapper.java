@@ -8,8 +8,5 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper(componentModel = "spring")
 public interface MedicationMapper {
-
-    Medication from(MedicationDTO medicationDTO);
-
     MedicationDTO from(Medication medication);
 }

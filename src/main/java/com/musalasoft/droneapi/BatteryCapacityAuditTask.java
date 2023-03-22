@@ -24,7 +24,6 @@ public class BatteryCapacityAuditTask {
 
     }
 
-
     @Scheduled(fixedRateString = "${scheduler.interval}")
     public void auditBatteryCapacity() {
         droneRepository.findAll()

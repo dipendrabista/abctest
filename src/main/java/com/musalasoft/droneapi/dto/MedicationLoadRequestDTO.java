@@ -8,5 +8,4 @@ import java.util.List;
 public class MedicationLoadRequestDTO {
     private String serialNumber;
     private List<String> medicationCodes;
-
 }
