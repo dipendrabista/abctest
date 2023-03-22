@@ -107,15 +107,4 @@ public class DispatcherController {
                 .data(droneService.findDroneBatteryCapacity(serialNumber))
                 .build();
     }
-
-
-//    @GetMapping(path = "deliver", produces = "application/json", consumes = "application/json")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @ApiOperation(value = "Check drone battery level for a given drone")
-//    public ResponseDTO deliver(@NotNull @RequestParam String serialNumber) {
-//        log.info("Checking battery levels of given Drone {}", serialNumber);
-//        return ResponseDTO.builder()
-//                .data(droneService.findDroneBatteryCapacity(serialNumber))
-//                .build();
-//    }
 }
