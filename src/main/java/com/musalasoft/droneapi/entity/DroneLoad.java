@@ -1,9 +1,6 @@
 package com.musalasoft.droneapi.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class DroneLoad {
     @Id
