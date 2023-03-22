@@ -1,6 +1,7 @@
 package com.musalasoft.droneapi.entity;
 
 import com.musalasoft.droneapi.entity.audit.CreateUpdateAudit;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
+@Builder
 public class DroneLoad extends CreateUpdateAudit<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -6,7 +6,6 @@ import com.musalasoft.droneapi.entity.MedicalDelivery;
 import com.musalasoft.droneapi.repo.DroneLoadRepository;
 import com.musalasoft.droneapi.repo.DroneRepository;
 import com.musalasoft.droneapi.repo.MedicalDeliveryRepository;
-import com.musalasoft.droneapi.repo.MedicationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,26 +19,22 @@ public class MedicalDeliveryService {
     private MedicalDeliveryRepository medicalDeliveryRepository;
     private DroneLoadRepository droneLoadRepository;
     private DroneRepository droneRepository;
-    private MedicationRepository medicationRepository;
 
     @Autowired
     public MedicalDeliveryService(
             MedicalDeliveryRepository medicalDeliveryRepository,
             DroneLoadRepository droneLoadRepository,
-            DroneRepository droneRepository,
-            MedicationRepository medicationRepository
+            DroneRepository droneRepository
     ) {
         this.medicalDeliveryRepository = medicalDeliveryRepository;
         this.droneLoadRepository = droneLoadRepository;
         this.droneRepository = droneRepository;
-        this.medicationRepository = medicationRepository;
     }
 
 
     public String deliver(String serialNumber) {
         log.info("Delivering Drone's load");
         droneRepository.updateDroneState(State.DELIVERING, serialNumber);
-
         List<DroneLoad> droneLoads = droneLoadRepository
                 .findByDroneSerialNumber(serialNumber);
         if (CollectionUtils.isEmpty(droneLoads))

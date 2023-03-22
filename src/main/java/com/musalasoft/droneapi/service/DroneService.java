@@ -68,7 +68,7 @@ public class DroneService {
 
     public List<Medication> findMedication(String serialNumber) {
         log.info("Retrieving drone details with serial number {}", serialNumber);
-        Drone droneEntity = droneRepository.findById(serialNumber).orElseThrow(() -> new EntityNotFoundException("Drone " + serialNumber + " is not fund"));
+        Drone droneEntity = droneRepository.findById(serialNumber).orElseThrow(() -> new EntityNotFoundException("Drone " + serialNumber + " is not found"));
         log.info("Drone Details {}", droneEntity);
         return droneEntity.getDroneLoads()
                 .stream()

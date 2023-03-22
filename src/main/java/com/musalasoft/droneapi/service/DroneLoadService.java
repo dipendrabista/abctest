@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -54,31 +54,36 @@ public class DroneLoadService {
      * @param medicationLoadRequestDTO
      * @return
      */
+
     @Transactional
     public String loadMedication(MedicationLoadRequestDTO medicationLoadRequestDTO) {
-        List<Medication> medicationList = new ArrayList<>();
-        List<DroneLoad> droneLoads = new ArrayList<>();
-        Drone drone = droneRepository.findById(medicationLoadRequestDTO.getSerialNumber()).orElseThrow(() -> ResourceNotFoundException.of("messageCreator.createMessage(DRONE_SERIAL_NUMBER_NOT_FOUND)"));
-        if (drone.getBatteryCapacity().compareTo(new Double(0.25)) < 0)
-            throw new RuntimeException("Can no load battery capacity less than 25%");
+        Drone drone = droneRepository.findById(medicationLoadRequestDTO.getSerialNumber())
+                .orElseThrow(() -> ResourceNotFoundException.of("Drone " + medicationLoadRequestDTO.getSerialNumber() + " doesn't exist !"));
 
-        medicationLoadRequestDTO.getMedicationCodes().forEach(code -> medicationList.add(medicationRepository.findById(code)
-                .orElseThrow(() -> ResourceNotFoundException.of("Invalid Medical Code"))));
-        if (getTotalMedicationLoad(medicationLoadRequestDTO.getSerialNumber()) >= drone.getWeightLimit())
+        if (drone.getBatteryCapacity() < 0.25)
+            throw new RuntimeException("Can not load battery capacity less than 25%");
+
+        List<Medication> medicationList = medicationLoadRequestDTO.getMedicationCodes()
+                .stream()
+                .map(code -> medicationRepository.findById(code)
+                        .orElseThrow(() -> ResourceNotFoundException.of("Invalid Medical Code")))
+                .collect(Collectors.toList());
+
+        //Calculate projected new load and check against drone weight limit
+        if (medicationList.stream().mapToDouble(medication -> medication.getWeight()).sum() + getTotalMedicationLoad(medicationLoadRequestDTO.getSerialNumber()) >= drone.getWeightLimit())
             throw new RuntimeException("Drone is Fully Loaded");
 
+        //Updating state to LOADING
         droneRepository.updateDroneState(State.LOADING, medicationLoadRequestDTO.getSerialNumber());
-        medicationList.forEach(medication -> {
-            DroneLoad droneLoad = new DroneLoad();
-            droneLoad.setDrone(drone);
-            droneLoad.setMedication(medication);
-            droneLoads.add(droneLoad);
 
-        });
+        List<DroneLoad> droneLoads = medicationList.stream()
+                .map(medication -> DroneLoad.builder().drone(drone).medication(medication).build())
+                .collect(Collectors.toList());
+
         droneLoadRepository.saveAll(droneLoads);
+
         droneRepository.updateDroneState(State.LOADED, medicationLoadRequestDTO.getSerialNumber());
+
         return "Drone Loaded Successfully";
     }
-
-
 }

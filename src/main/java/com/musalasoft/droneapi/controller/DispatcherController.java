@@ -4,6 +4,7 @@ import com.musalasoft.droneapi.dto.DroneDTO;
 import com.musalasoft.droneapi.dto.MedicationDTO;
 import com.musalasoft.droneapi.dto.MedicationLoadRequestDTO;
 import com.musalasoft.droneapi.dto.ResponseDTO;
+import com.musalasoft.droneapi.exception.object.ResourceNotFoundException;
 import com.musalasoft.droneapi.service.DroneLoadService;
 import com.musalasoft.droneapi.service.DroneService;
 import io.swagger.annotations.Api;
@@ -73,12 +74,8 @@ public class DispatcherController {
     public ResponseDTO checkLoadedMedication(@NotNull @RequestParam String serialNumber) {
         log.info("Retrieving list of loaded medication for the given drone {}", serialNumber);
         List<MedicationDTO> medicationDTOs = droneService.findLoadedMedication(serialNumber);
-        if (CollectionUtils.isEmpty(medicationDTOs)) {
-            log.info("Drone {} is not loaded any medication ", serialNumber);
-            return ResponseDTO.builder()
-                    .data(Collections.EMPTY_LIST)
-                    .build();
-        }
+        if (CollectionUtils.isEmpty(medicationDTOs))
+            throw new ResourceNotFoundException("Drone is not loaded with any medication");
         return ResponseDTO.builder()
                 .data(medicationDTOs)
                 .build();
