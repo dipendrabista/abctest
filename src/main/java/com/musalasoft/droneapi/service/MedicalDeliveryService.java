@@ -40,7 +40,7 @@ public class MedicalDeliveryService {
         if (CollectionUtils.isEmpty(droneLoads))
             throw new RuntimeException("Drone specifies is not loaded or does not exist");
         MedicalDelivery medicalDelivery = new MedicalDelivery();
-        medicalDelivery.setDroneLoads(droneLoads);
+//        medicalDelivery.setDroneLoads(droneLoads);
         medicalDelivery.setDeliveryTime(java.time.LocalDateTime.now());
         medicalDeliveryRepository.save(medicalDelivery);
         droneRepository.updateDroneState(State.DELIVERED, serialNumber);

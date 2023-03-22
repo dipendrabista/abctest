@@ -66,12 +66,12 @@ public class DroneLoadService {
         List<Medication> medicationList = medicationLoadRequestDTO.getMedicationCodes()
                 .stream()
                 .map(code -> medicationRepository.findById(code)
-                        .orElseThrow(() -> ResourceNotFoundException.of("Invalid Medical Code")))
+                        .orElseThrow(() -> ResourceNotFoundException.of("Invalid Medical Code "+ code)))
                 .collect(Collectors.toList());
 
         //Calculate projected new load and check against drone weight limit
         if (medicationList.stream().mapToDouble(medication -> medication.getWeight()).sum() + getTotalMedicationLoad(medicationLoadRequestDTO.getSerialNumber()) >= drone.getWeightLimit())
-            throw new RuntimeException("Drone is Fully Loaded");
+            throw new RuntimeException("Drone does not have capacity for new load");
 
         //Updating state to LOADING
         droneRepository.updateDroneState(State.LOADING, medicationLoadRequestDTO.getSerialNumber());

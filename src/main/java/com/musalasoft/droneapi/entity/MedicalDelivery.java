@@ -17,13 +17,14 @@ public class MedicalDelivery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "delivery_id")
+    private Integer deliveryId;
+
     @Column(name = "delivery_time", columnDefinition = "TIMESTAMP NOT NULL")
     private LocalDateTime deliveryTime;
-
-    @OneToMany(targetEntity = DroneLoad.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    private List<DroneLoad> droneLoads;
+//
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "drone_load_delivery_id", referencedColumnName = "id")
+//    private List<DroneLoad> droneLoads;
 
 }

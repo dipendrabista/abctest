@@ -21,7 +21,8 @@ public class DroneLoad {
     private Drone drone;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "code", referencedColumnName = "code", unique = true)
+    @JoinColumn(name = "code", referencedColumnName = "code")
     private Medication medication;
+
 
 }
