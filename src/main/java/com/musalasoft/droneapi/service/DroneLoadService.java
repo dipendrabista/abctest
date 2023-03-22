@@ -83,7 +83,10 @@ public class DroneLoadService {
         droneRepository.updateDroneState(State.LOADING, medicationLoadRequestDTO.getSerialNumber());
 
         List<DroneLoad> droneLoads = medicalWithQuantityList.stream()
-                .map(medicationWithQuantity -> DroneLoad.builder().drone(drone).medication(medicationWithQuantity.getMedication()).build())
+                .map(medicationWithQuantity -> DroneLoad.builder()
+                        .drone(drone).medication(medicationWithQuantity.getMedication())
+                        .quantity(medicationWithQuantity.getQuantity())
+                        .build())
                 .collect(Collectors.toList());
 
         droneLoadRepository.saveAll(droneLoads);

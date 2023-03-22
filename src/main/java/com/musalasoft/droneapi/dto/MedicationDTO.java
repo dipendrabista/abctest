@@ -19,4 +19,5 @@ public class MedicationDTO {
     private String name;
     private Double weight;
     private Blob image;
+    private Integer quantity;
 }

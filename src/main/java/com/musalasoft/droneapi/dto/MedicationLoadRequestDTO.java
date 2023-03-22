@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Data
@@ -15,7 +17,9 @@ public class MedicationLoadRequestDTO {
     public static class MedicationCode {
 
         String code;
-        int quantity;
+
+        @Min(1)
+        int quantity = 1;
     }
 }
 

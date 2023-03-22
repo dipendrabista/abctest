@@ -3,6 +3,7 @@ package com.musalasoft.droneapi.service;
 import com.musalasoft.droneapi.constants.AppConstants;
 import com.musalasoft.droneapi.constants.State;
 import com.musalasoft.droneapi.dto.DroneDTO;
+import com.musalasoft.droneapi.dto.DroneStatus;
 import com.musalasoft.droneapi.dto.MedicationDTO;
 import com.musalasoft.droneapi.dto.mapper.DroneMapper;
 import com.musalasoft.droneapi.dto.mapper.MedicationMapper;
@@ -57,22 +58,26 @@ public class DroneService {
         return droneRepository.save(droneMapper.from(droneDTO));
     }
 
+//
+//    public List<MedicationDTO> findLoadedMedication(String serialNumber) {
+//        return findMedication(serialNumber)
+//                .stream()
+//                .map(medicationMapper::from)
+//                .collect(Collectors.toList());
+//
+//    }
 
     public List<MedicationDTO> findLoadedMedication(String serialNumber) {
-        return findMedication(serialNumber)
-                .stream()
-                .map(medicationMapper::from)
-                .collect(Collectors.toList());
-
-    }
-
-    public List<Medication> findMedication(String serialNumber) {
         log.info("Retrieving drone details with serial number {}", serialNumber);
-        Drone droneEntity = droneRepository.findById(serialNumber).orElseThrow(() -> new EntityNotFoundException("Drone " + serialNumber + " is not found"));
+        Drone droneEntity = getDrone(serialNumber);
         log.info("Drone Details {}", droneEntity);
         return droneEntity.getDroneLoads()
                 .stream()
-                .map(droneLoad -> droneLoad.getMedication())
+                .map(droneLoad -> {
+                    MedicationDTO medicationDTO = medicationMapper.from(droneLoad.getMedication());
+                    medicationDTO.setQuantity(droneLoad.getQuantity());
+                    return medicationDTO;
+                })
                 .collect(Collectors.toList());
 
     }
@@ -91,9 +96,26 @@ public class DroneService {
 
     public Double findDroneBatteryCapacity(String serialNumber) {
         log.info("Retrieving Battery capacity for {} drone ", serialNumber);
-        return droneRepository.findById(serialNumber)
-                .map(drone -> drone.getBatteryCapacity())
-                .orElseThrow(() -> ResourceNotFoundException.of("Drone " + serialNumber + " Does not Exist "));
+        return getDrone(serialNumber).getBatteryCapacity();
     }
 
+    public Drone changeDroneStatus(String serialNumber, DroneStatus droneStatus) {
+//        log.info("Retrieving Battery capacity for {} drone ", serialNumber);
+        Drone drone = this.getDrone(serialNumber);
+        // todo: validation
+        droneRepository.updateDroneStateAndBatteryCapacity(
+                serialNumber,
+                droneStatus.getStatus(),
+                droneStatus.getBatteryRemaining()
+        );
+        drone.setBatteryCapacity(droneStatus.getBatteryRemaining());
+        drone.setState(droneStatus.getStatus());
+        return drone;
+    }
+
+
+    private Drone getDrone(String serialNumber) {
+        return droneRepository.findById(serialNumber)
+                .orElseThrow(() -> new EntityNotFoundException("Drone " + serialNumber + " Does not Exist "));
+    }
 }

@@ -1,9 +1,6 @@
 package com.musalasoft.droneapi.controller;
 
-import com.musalasoft.droneapi.dto.DroneDTO;
-import com.musalasoft.droneapi.dto.MedicationDTO;
-import com.musalasoft.droneapi.dto.MedicationLoadRequestDTO;
-import com.musalasoft.droneapi.dto.ResponseDTO;
+import com.musalasoft.droneapi.dto.*;
 import com.musalasoft.droneapi.exception.object.ResourceNotFoundException;
 import com.musalasoft.droneapi.service.DroneLoadService;
 import com.musalasoft.droneapi.service.DroneService;
@@ -118,4 +115,17 @@ public class DispatcherController {
                 .data(droneService.findDroneBatteryCapacity(serialNumber))
                 .build();
     }
+
+
+    @PostMapping(path = "change-status", produces = "application/json", consumes = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Check drone battery level for a given drone")
+    public ResponseDTO deliver(@NotNull @RequestParam String serialNumber,
+                               @Valid @RequestBody DroneStatus droneStatus) {
+        log.info("Change {}", serialNumber);
+        return ResponseDTO.builder()
+                .data(droneService.changeDroneStatus(serialNumber, droneStatus))
+                .build();
+    }
 }
+
