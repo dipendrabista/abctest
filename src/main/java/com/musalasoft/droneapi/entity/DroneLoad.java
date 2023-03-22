@@ -20,6 +20,9 @@ public class DroneLoad {
     @JoinColumn(name = "serialNumber", referencedColumnName = "serialNumber")
     private Drone drone;
 
+    @Column
+    private Integer quantity = 1;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "code", referencedColumnName = "code")
     private Medication medication;
