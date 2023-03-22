@@ -1,6 +1,5 @@
 package com.musalasoft.droneapi.entity;
 
-import com.musalasoft.droneapi.entity.audit.CreateUpdateAudit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
-public class MedicationDeliver extends CreateUpdateAudit<String> {
+public class MedicationDeliver {
     @Id
     private Integer id;
 

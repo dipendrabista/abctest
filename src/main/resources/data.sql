@@ -1,12 +1,20 @@
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit,created_by,created_date) VALUES('DRONE001', 15, 'LIGHTWEIGHT', 'IDLE', 300,'manualLoadUser','2023-03-21' );
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit,created_by,created_date) VALUES('DRONE002', 60, 'LIGHTWEIGHT', 'IDLE', 300,'manualLoadUser','2023-03-21');
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit,created_by,created_date) VALUES('DRONE003', 42, 'LIGHTWEIGHT', 'LOADING', 300,'manualLoadUser','2023-03-21');
-INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit,created_by,created_date) VALUES('DRONE004', 42, 'LIGHTWEIGHT', 'IDLE', 300,'manualLoadUser','2023-03-21');
+NSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE001', 100, 'LIGHTWEIGHT', 'IDLE', 120);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE002', 99, 'MIDDLEWEIGHT', 'IDLE', 220);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE003', 88, 'CRUISERWEIGHT', 'IDLE',300);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE004', 95, 'HEAVYWEIGHT', 'IDLE', 450);
+INSERT INTO DRONE (serial_number, battery_capacity, model, state, weight_limit) VALUES('DRONE004', 90, 'HEAVYWEIGHT', 'IDLE', 500);
 
 
-INSERT INTO MEDICATION (code, name, weight) VALUES('MEDICATION001', 'Melanotan', 80);
-INSERT INTO MEDICATION (code, name, weight) VALUES('MEDICATION002', 'Clemastine', 50);
-INSERT INTO MEDICATION (code, name, weight) VALUES('MEDICATION003', 'Ibuprofen', 110);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED001', 'Melanotan', 200);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED002', 'Clemastine', 50);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED003', 'Ibuprofen', 10);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED004', 'Acetaminophen', 100);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED005', 'Adderall', 150);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED006', 'Amitriptyline', 125);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED007', 'Dapagliflozin', 150);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED008', 'Detrol', 25);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED009', 'Felodipine', 100);
+INSERT INTO MEDICATION (code, name, weight) VALUES('MED10', 'Zaleplon', 50);
 
 --LOAD DRONE WITH MEDICATION
 INSERT INTO DRONE_LOAD (ID,serial_number, code) VALUES(1,'DRONE001', 'MEDICATION001');

@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Drone extends CreateUpdateAudit<String> {
+public class Drone {
     @Id
     @Size(min = 1, max = 100)
     private String serialNumber;
@@ -42,7 +42,7 @@ public class Drone extends CreateUpdateAudit<String> {
     @Column(columnDefinition = "VARCHAR(10) NOT NULL")
     private State state;
 
-    @OneToMany(mappedBy = "drone",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "drone", fetch = FetchType.LAZY)
     @JsonBackReference
     List<DroneLoad> droneLoads;
 }
