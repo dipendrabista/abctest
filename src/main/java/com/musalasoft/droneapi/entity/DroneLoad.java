@@ -27,4 +27,5 @@ public class DroneLoad {
     @JoinColumn(name = "code", referencedColumnName = "code")
     private Medication medication;
 
+
 }

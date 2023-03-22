@@ -4,7 +4,6 @@ import com.musalasoft.droneapi.constants.State;
 import com.musalasoft.droneapi.dto.MedicationLoadRequestDTO;
 import com.musalasoft.droneapi.entity.Drone;
 import com.musalasoft.droneapi.entity.DroneLoad;
-import com.musalasoft.droneapi.entity.Medication;
 import com.musalasoft.droneapi.exception.object.ResourceNotFoundException;
 import com.musalasoft.droneapi.model.MedicationWithQuantity;
 import com.musalasoft.droneapi.repo.DroneLoadRepository;
@@ -66,6 +65,7 @@ public class DroneLoadService {
 
         List<MedicationWithQuantity> medicalWithQuantityList = medicationLoadRequestDTO.getMedicationCodes()
                 .stream()
+
                 .map(code -> MedicationWithQuantity.builder()
                         .medication(medicationRepository.findById(code.getCode()).orElseThrow(() -> ResourceNotFoundException.of("Invalid Medical Code")))
                         .quantity(code.getQuantity()).build())
