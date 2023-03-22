@@ -13,7 +13,9 @@ import javax.persistence.*;
 public class DroneLoad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private Integer id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "serialNumber", referencedColumnName = "serialNumber")
     private Drone drone;

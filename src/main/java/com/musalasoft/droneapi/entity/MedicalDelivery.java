@@ -23,7 +23,7 @@ public class MedicalDelivery {
     private LocalDateTime deliveryTime;
 
     @OneToMany(targetEntity = DroneLoad.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "drone_load_id", referencedColumnName = "id")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private List<DroneLoad> droneLoads;
 
 }
